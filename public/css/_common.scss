@@ -1,0 +1,51 @@
+html {
+    font-size: 16px;
+
+    @media (max-width: $mobileLarge) {
+        font-size: 14px;
+    }
+
+    @media (max-width:$ipadLandscape) {
+        font-size: 13px;
+    }
+
+    @media (max-width:$ipadPotrait) {
+        font-size: 11px;
+    }
+}
+
+body {
+    font-family: $font-family-open-sans;
+    font-size: 1rem;
+    background-color: $body-bkg;
+    padding-top: 3.1rem;
+
+    @media(max-width: $mobileSmall) {
+        padding-top: 6rem;
+    }
+}
+.btn-primary {
+    color: $whiteColor;
+    background-color: $red;
+    border-color: $red;
+}
+::placeholder {
+    color: $whiteColor;
+}
+::-webkit-input-placeholder { /* Edge */
+    color: $whiteColor;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $whiteColor;
+
+}
+.grey-bg {
+    background: $lightgrey;
+}
+
+
+
+
+
+

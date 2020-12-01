@@ -1,0 +1,102 @@
+//** Background color for `<body>`.
+$body-bkg: #ffffff !default;
+
+
+//** Global text color on `<body>`.
+$body-color: #626667 !default;
+$btn-dark-blue:#356f9f;
+$btn-light-blue:#82b9e0;
+$btn-bg-white:#ffffff;
+//$bgColorgreen:#61d49d;
+$bgGraydark:#232323;
+$bgLightgray:#f5f9ff;
+$bgGray: #ebeaea;
+//$btn-dark-green:#1e9a5e;
+$btn-dark-skyblue:#58a7e2;
+$btn-dark-purple:#773ad6;
+$bgblue: #2b6f9c;
+$bgheader: #356f9f;
+$darkblue:#356f9f;
+$gradient-purple:#4055b2 ;
+$gradient-blue:#1daaf1  ;
+$btn-blue:#346f9f;
+$text-blue:#4698d1;
+$purplecolor:#773ad7;
+$lightblue:#c0dcf1;
+
+
+
+
+/*Border Radius*/
+$bordrds-8: .9rem;
+/*Common Spacing*/
+$commonSpacing : 2.125rem;
+$bottomspacing: 3.125rem;
+
+//** Global text color
+$navyblue:#4d5068;
+$faq-txt:#0a0a0a;
+$linkBlue : #21397c;
+$light-blue: #1daaf1;
+$lightwhite:#f5f9ff;
+$purple:#7569f0;
+$green: #4cad7f;
+$black: #000000;
+$lightblack:#161616;
+$bluecolor:#346f9f;
+$dark-gray: #98a9ae;
+$dark-blue:#4055b2;
+$medium-purple:#8170f3;
+$lighter-blue: #2d83d4;
+$dark-purple:#7367f0;
+$whiteColor : #ffffff;
+$blackColor : #000000;
+$skyblue: #1ea6ee;
+$graycolor:#aeaeae;
+$breadcrumbWrap : #f6f4f4;
+$textColor : #666666;
+$lightTextColor : #999999;
+$starInactive : #ebeef0;
+$starActive:#ffc322;
+$accordion-arrow : #d0d0d0;
+$blue:#0690f4;
+$tickColor : #d7d7d7;
+$accordion-arrow : #d0d0d0;
+$borderColor : #f4f4f4;
+$light-green : #60d39c; 
+$dark-green : #1e9a5e;
+$yellow : #cddb4a;
+$orange : #ff8454;
+$brightBlue : #3556fb;
+$greytext : #555555;
+$light-greytext:#6f6d6c;
+$dark-skyblue:#58a7e2;
+$light-skyblue:#55c2f3;
+$dark-purple:#b27bf7;
+$light-purple:#603aed;
+$light-grey:#ebebeb;
+$testimonial-bg : #6684f2;
+$light-purple: #6677c1;
+$dropdown-border:#c5c5c5;
+$medium-skyblue: #19bdb5;
+$redtext: #ff0000;
+$invest-color:#1ea8ef;
+$support-text:#95a8ac;
+$lighttext:#c5c5c4;
+$timeline-grey:#b7b6b5;
+$tab-color:#6badda;
+$thead:#5ca5d7;
+$lightgrey:#dee2e6;
+$table-text:#707070;
+$blue-light:#85a5e0;
+//## Font
+$font-family-open-sans : 'Open Sans' !important;
+// $font-family-montserrat : 'Montserrat';
+
+/* Media Queries */
+$mobileSmall : 575px;
+$mobileLarge : 767px;
+$ipadPotrait : 991px;
+$ipadLandscape : 1200px;
+$normalDesktop : 1400px;
+$largeDesktop : 1800px;

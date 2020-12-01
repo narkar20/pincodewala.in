@@ -1,0 +1,61 @@
+.banner-w {
+    background-image: url(../Images/banner.jfif);
+
+    .search-w {
+        padding-top: 120px;
+        padding-bottom:60px;
+
+        .title {
+            color: $whiteColor;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-top: 30px;
+
+            label {
+                color: $whiteColor;
+                font-size: 16px;
+            }
+            .form-control {
+                box-shadow: 0 1px 1px #e9e7fb;
+                background: transparent;
+            }
+        }
+    }
+}
+.state-w, .District-w {
+    margin-top: 60px;
+    margin-bottom: 60px;
+
+    .listing-w {
+        .title {
+            font-size: 28px;
+            border-bottom: 2px solid $red;
+            font-weight: 600;
+        }
+
+        .grey-bg {
+            background: $grey-bg;
+            padding: 25px;
+                li {
+                    font-size: 16px;
+                    color: $body-color;
+                    list-style: none;
+                    line-height: 30px;
+                }
+        }
+    }
+}
+.find-pincide-w {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background: $red;
+    .content-w{
+        padding:25px;
+        color:$white;
+        .title{
+            font-weight:600;
+        }
+    }
+}

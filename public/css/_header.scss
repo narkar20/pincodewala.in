@@ -1,0 +1,76 @@
+
+.fix-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999999;
+    background: $whiteColor;
+    //  @media ( min-width :$normalDesktop){
+    //      top: 4.5%;
+    // }
+    .navbar-brand {
+        @media ( max-width :$ipadLandscape) and ( min-width :$mobileLarge) {
+            margin-right: 0;
+        }
+
+        .logo {
+            max-width: 224px;
+
+            img {
+                @media ( max-width :$ipadLandscape) {
+                    max-width: 70%;
+                }
+            }
+        }
+    }
+
+    .logo {
+        max-width: 224px;
+    }
+
+    .navbar-shrink {
+        background: #fff;
+        box-shadow: 0 4px 8px #e9e7fb;
+    }
+
+    .navbar {
+        .navbar-collapse {
+            // display: flex!important;
+            // flex-basis: auto;
+            @media ( max-width :$mobileSmall ) {
+                border-top: 1px solid #ddd;
+                padding-bottom: 1rem;
+            }
+
+            .navbar-nav {
+                li {
+                    padding-right: 1rem;
+
+                    @media ( max-width :$ipadPotrait) and ( min-width :$mobileLarge) {
+                        padding-right: 0.5rem;
+                    }
+
+                    a {
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: $black !important;
+
+                        @media ( max-width :$mobileSmall ) {
+                            font-size: 1.2rem;
+                            padding-bottom: 0.8rem;
+                        }
+                    }
+                }
+
+                // &.active {
+                   // border-bottom: 2px solid $red;
+                //}
+
+                //&:hover {
+                 //   border-bottom: 2px solid $red;
+                //}
+            }
+        }
+    }
+}
