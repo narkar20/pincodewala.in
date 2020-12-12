@@ -1,12 +1,13 @@
 @extends('layouts.default')
-@section('title','Pincode')
+@section('title',$pincode_details->pincode_seo_title ?? 'Pincode')
+@section('description',$pincode_details->pincode_seo_description ?? '' )
 @section('content')
 <section class="b-w">
         <div class="container ">
             <ol class="breadcrumb pl-0">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Pincode</a></li>
-                @if(isset($pincode) && !empty($pincode))<li class="breadcrumb-item"><a>{{$pincode ?? ''}}</a></li>@endif
+                @if(isset($pincode) && !empty($pincode))<li class="breadcrumb-item"><a href="{{url('pincode')}}/{{$pincode_details->pincode}}">{{$pincode ?? ''}}</a></li>@endif
             </ol>
         </div>
     </section>
@@ -35,7 +36,7 @@
                     @foreach($records as $record)
                    
                     <tr>
-                        <td><a href="{{url('/')}}/{{$record->location_seo_url}}">{{$record->postoffice_name}}</a></td>
+                        <td><a href="{{url('/')}}{{$record->location_seo_url}}">{{$record->postoffice_name}}</a></td>
                         <td><a href="{{url('pincode')}}{{$record->pincode}}">{{$record->pincode}}</a></td>
                         <td><a href="{{url('/')}}{{$record->district_seo_url}}">{{$record->district_name}}</a></td>
                         <td><a href="{{url('/')}}{{$record->state_seo_url}}">{{$record->state_name}}</a></td>

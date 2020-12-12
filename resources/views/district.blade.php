@@ -1,13 +1,14 @@
 @extends('layouts.default')
-@section('title','District')
+@section('title',$district_details->seo_title ?? 'District')
+@section('description',$district_details->seo_description ?? '' )
 @section('content')
     <!--breadcrums-->
     <section class="b-w">
         <div class="container ">
             <ol class="breadcrumb pl-0">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-                @if(isset($state) && !empty($state))<li class="breadcrumb-item"><a>{{ucwords(str_replace('-',' ',$state))}}</a></li>@endif
-                @if(isset($district) && !empty($district))<li class="breadcrumb-item"><a>{{ucwords(str_replace('-',' ',$district))}}</a></li>@endif
+                @if(isset($state) && !empty($state))<li class="breadcrumb-item"><a href="{{$district_details->state_seo_url}}">{{ucwords(str_replace('-',' ',$state))}}</a></li>@endif
+                @if(isset($district) && !empty($district))<li class="breadcrumb-item"><a href="{{ Request::url() }}">{{ucwords(str_replace('-',' ',$district))}}</a></li>@endif
             </ol>
         </div>
     </section>

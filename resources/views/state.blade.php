@@ -1,50 +1,16 @@
 @extends('layouts.default')
-@section('title','State')
+@section('title',$state->seo_title ?? '')
+@section('description',$state->seo_description ?? '')
 @section('content')
-
     <!--breadcrums-->
     <section class="b-w">
         <div class="container">
             <ol class="breadcrumb pl-0">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-                @if(isset($state_name) && !empty($state_name))<li class="breadcrumb-item"><a href="{{url('/state')}}/{{$state_name}}">{{$state->state}}</a></li>@endif
+                @if(isset($state_name) && !empty($state_name))<li class="breadcrumb-item"><a href="{{ Request::url() }}">{{$state->state}}</a></li>@endif
             </ol>
         </div>
     </section>
-    <!-- end breadcrums -->
-    <!--state-w-->
-    <!-- <section class="state-w">
-        <div class="container">
-            <div class="row align-items-center ">
-                <div class="col-md-4 ">
-                    <div class="form-group">
-                        <label for="email">Distict *</label>
-                        <select class="form-control select2" id="seo_url" placeholder="Select your district">
-                            <option selected disabled> Select District</option>
-                            @if(isset($district_list) && !empty($district_list))
-                            @foreach($district_list as $district)
-                              <option value="{{$district->district_code}}" data-seo_url="{{$district->seo_url}}">{{$district->district}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4 ">
-                    <div class="form-group">
-                        <label for="">Search using pin code *</label>
-                        <select class="form-control select2" id="pincode" placeholder="Enter 3 digit of Pin-code">
-                            <option></option>
-                          
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2  text-center pt-3">
-                    <button class="btn btn-primary" id="search" type="button">SEARCH</button>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!--location-w-->
     <section class="location-w">
         <div class="container ">
             <div class="row m-0">
@@ -52,7 +18,7 @@
             <table id="example" class="table table-striped table-bordered col-md-8" style="width:100%">
                 <thead>
                     <tr>
-                        <th colspan="4" class="bg-red">District of {{$state->state}}</th>
+                        <th colspan="4" class="bg-red"> {{$state->state ?? ''}} Pin Code List</th>
                     </tr>
                     <tr>
                         <th>District</th>
@@ -70,7 +36,6 @@
                     @endif
                 </tbody>
             </table>
-
         </div>
     </section>
     <!-- end location-w -->

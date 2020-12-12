@@ -22,7 +22,8 @@ class HomeController extends Controller
     public function index()
     {
         $state_list = State::select('id','state','state_code','seo_url')->get();
-        return view('home',compact('state_list'));
+        $top_city_list = District::select('id','district','state_code','seo_url')->where('is_top_city',1)->get();
+        return view('home',compact('state_list','top_city_list'));
     }
 
     public function getDistrictByState($state_code)
@@ -33,13 +34,13 @@ class HomeController extends Controller
 
      public function getLocationByDistrict($district_code)
     {
-        $location_list = Location::select('id','location.postoffice_name')->where('district_code',$district_code)->get();
+        $location_list = Location::select('id','location.postoffice_name','seo_url')->where('district_code',$district_code)->get();
         return response()->json($location_list);
     }
 
       public function stateList($state_name =null)
     {
-        $state = State::select('state.state','state.state_code','state.seo_url as state_seo_url','district.district')
+        $state = State::select('state.state','state.state_code','state.seo_url as state_seo_url','district.district','state.seo_title','state.seo_description')
         ->join('district','district.state_code','=','state.state_code')
         ->where('state.seo_url', 'like', '%'.$state_name.'%')
         ->first();
@@ -53,13 +54,17 @@ class HomeController extends Controller
     {   
         $limit = 30;
         $offset = isset($request->page) ? $request->page : 0;
-        $query = District::select('district.district as district_name','state.state as state_name','district.seo_url as district_seo_url','state.seo_url as state_seo_url','location.pincode','location.postoffice_name','location.seo_url as location_seo_url')
+        $query = District::select('district.district as district_name','state.state as state_name','district.seo_url as district_seo_url','state.seo_url as state_seo_url','location.pincode','location.postoffice_name','location.seo_url as location_seo_url','district.seo_description','district.seo_title')
         ->join('state','state.state_code','=','district.state_code')
         ->join('location','location.district_code','=','district.district_code')
         ->where('district.seo_url', 'like', '%'.$request->path().'%');
         $total_count = $query->count();
         $records = $query->limit($limit)->offset($offset)->get();
         $html = '';
+        $district_details = District::select('district.seo_title','district.seo_description','state.seo_url as state_seo_url')
+        ->join('state','district.state_code','=','state.state_code')
+        ->where('district.district', 'like', '%'.$district.'%')
+        ->first();
         if(!empty($records) && count($records) > 0) {
             foreach ($records as $record) {
                 $pincode = URL::to('pincode').'/'. $record->pincode;
@@ -81,7 +86,7 @@ class HomeController extends Controller
            return $html;
         }
         $totalPageNumber = (int) ceil($total_count / $limit);
-        return view('district', compact('records', 'totalPageNumber','district','state'));
+        return view('district', compact('records', 'totalPageNumber','district','state','district_details'));
      
     }
 
@@ -91,7 +96,13 @@ class HomeController extends Controller
         $limit = 30;
         $offset = isset($request->page) ? $request->page : 0;
         $pincode = isset($request->pincode) ? $request->pincode : '';
-        $query = Location::select('district.district as district_name','state.state as state_name','state.state_code','state.seo_url as state_seo_url','district.district','district.seo_url as district_seo_url','location.pincode','location.postoffice_name','state.state','location.seo_url as location_seo_url')
+        $location_details = Location::select('location.seo_title','location.seo_description','state.seo_url as state_seo_url','district.seo_url as district_seo_url')
+        ->join('state','location.state_code','=','state.state_code')
+        ->join('district','district.district_code','=','location.district_code')
+        ->where('postoffice_name', 'like', '%'.$postoffice_name.'%')
+        ->first();
+        
+        $query = Location::select('district.district as district_name','state.state as state_name','state.state_code','state.seo_url as state_seo_url','district.district','district.seo_url as district_seo_url','location.pincode','location.postoffice_name','state.state','location.seo_url as location_seo_url','location.seo_description','location.seo_title')
         ->join('state','location.state_code','=','state.state_code')
         ->join('district','district.district_code','=','location.district_code')
         ->where('location.seo_url', 'like', '%'.$request->path().'%');
@@ -124,14 +135,14 @@ class HomeController extends Controller
             return $html;
         }
         $totalPageNumber = (int) ceil($total_count / $limit);
-        return view('location', compact('records', 'totalPageNumber','postoffice_name','pincode','state','district'));
+        return view('location', compact('records', 'totalPageNumber','postoffice_name','pincode','state','district','location_details'));
     }
 
     public function allLocationList(Request $request)
     {
         $limit = 30;
         $offset = isset($request->page) ? $request->page : 0;
-        $query = Location::select('district.district as district_name','state.state as state_name','state.state_code','state.seo_url as state_seo_url','district.district','district.seo_url as district_seo_url','location.pincode','location.postoffice_name','state.state','location.seo_url as location_seo_url')
+        $query = Location::select('district.district as district_name','state.state as state_name','state.state_code','state.seo_url as state_seo_url','district.district','district.seo_url as district_seo_url','location.pincode','location.postoffice_name','state.state','location.seo_url as location_seo_url','location.seo_description','location.seo_title')
         ->join('state','location.state_code','=','state.state_code')
         ->join('district','district.district_code','=','location.district_code');
         $total_count = $query->count();
@@ -166,19 +177,19 @@ class HomeController extends Controller
 
     public function pincodeDetails($pincode)
     {
-        $records = Location::select('district.district as district_name','state.state as state_name','state.state_code','state.seo_url as state_seo_url','district.district','district.seo_url as district_seo_url','location.pincode','location.postoffice_name','state.state','location.seo_url as location_seo_url')
+        $records = Location::select('district.district as district_name','state.state as state_name','state.state_code','state.seo_url as state_seo_url','district.district','district.seo_url as district_seo_url','location.pincode','location.postoffice_name','state.state','location.seo_url as location_seo_url','location.seo_description','location.seo_title')
         ->join('state','location.state_code','=','state.state_code')
         ->join('district','district.district_code','=','location.district_code')
         ->where('location.pincode', $pincode)->get();
-       
-        return view('pincode', compact('records','pincode'));
+       $pincode_details = Location::select('pincode_seo_title','pincode_seo_description','pincode')->where('pincode', 'like', '%'.$pincode.'%')->first();
+        return view('pincode', compact('records','pincode','pincode_details'));
     }
 
     public function allDistrictList(Request $request)
     {   
         $limit = 30;
         $offset = isset($request->page) ? $request->page : 0;
-        $query = District::select('district.district as district_name','state.state as state_name','district.seo_url as district_seo_url','state.seo_url as state_seo_url','location.pincode','location.postoffice_name','location.seo_url as location_seo_url')
+        $query = District::select('district.district as district_name','state.state as state_name','district.seo_url as district_seo_url','state.seo_url as state_seo_url','location.pincode','location.postoffice_name','location.seo_url as location_seo_url','district.seo_description','district.seo_title')
         ->join('state','state.state_code','=','district.state_code')
         ->join('location','location.district_code','=','district.district_code');
         $total_count = $query->count();
